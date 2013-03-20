@@ -1,9 +1,9 @@
-package ru.emdev.auth.actions;
+package ru.emdev.security.auth.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ru.emdev.auth.util.SessionCountUtil;
+import ru.emdev.security.auth.util.SessionCountUtil;
 
 import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.events.ActionException;

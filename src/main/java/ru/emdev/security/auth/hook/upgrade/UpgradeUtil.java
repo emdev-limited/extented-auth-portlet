@@ -1,4 +1,4 @@
-package ru.emdev.auth.hook.upgrade;
+package ru.emdev.security.auth.hook.upgrade;
 
 import com.liferay.portal.model.Company;
 import com.liferay.portal.service.CompanyLocalServiceUtil;

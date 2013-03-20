@@ -1,11 +1,11 @@
-package ru.emdev.auth;
+package ru.emdev.security.auth;
 
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import ru.emdev.auth.util.PropsKeys;
-import ru.emdev.auth.util.SessionCountUtil;
+import ru.emdev.security.auth.util.PropsKeys;
+import ru.emdev.security.auth.util.SessionCountUtil;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;

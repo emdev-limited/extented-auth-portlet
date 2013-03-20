@@ -1,6 +1,6 @@
-package ru.emdev.auth.hook.upgrade;
+package ru.emdev.security.auth.hook.upgrade;
 
-import ru.emdev.auth.hook.upgrade.v6_1_1_1.UpgradeUser;
+import ru.emdev.security.auth.hook.upgrade.v6_1_1_1.UpgradeUser;
 
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 

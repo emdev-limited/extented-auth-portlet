@@ -1,4 +1,4 @@
-package ru.emdev.auth;
+package ru.emdev.security.auth;
 
 import com.liferay.portal.security.auth.AuthException;
 

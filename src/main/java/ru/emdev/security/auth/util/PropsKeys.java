@@ -1,4 +1,4 @@
-package ru.emdev.auth.util;
+package ru.emdev.security.auth.util;
 
 public class PropsKeys {
 

@@ -1,4 +1,4 @@
-package ru.emdev.auth;
+package ru.emdev.auth.util;
 
 import java.util.HashSet;
 import java.util.Set;

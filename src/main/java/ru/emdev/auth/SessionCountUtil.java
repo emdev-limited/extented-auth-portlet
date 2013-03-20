@@ -12,7 +12,11 @@ public class SessionCountUtil {
 
 	private static final Log _log = LogFactoryUtil.getLog(SessionCountUtil.class);
 
-	private static final PortalCache _portalCache = MultiVMPoolUtil.getCache(Constants.AUTH_CACHE_NAME);
+	public static final String AUTH_CACHE_NAME = "customAuthCache";
+
+	public static final String KEY_SESSIONS_CACHE = "sessionsCache";
+
+	private static final PortalCache _portalCache = MultiVMPoolUtil.getCache(AUTH_CACHE_NAME);
 
 	public static void add(long userId, String sessionId) {
 		Set<String> sessions = getSessions(userId);
@@ -20,7 +24,7 @@ public class SessionCountUtil {
 			if (_log.isDebugEnabled())
 				_log.debug("Creating session cache for user[" + userId + "]");
 			sessions = new HashSet<String>(3);
-			_portalCache.put(Constants.KEY_SESSIONS_CACHE + userId, sessions);
+			_portalCache.put(KEY_SESSIONS_CACHE + userId, sessions);
 		}
 		sessions.add(sessionId);
 		if (_log.isDebugEnabled())
@@ -50,7 +54,7 @@ public class SessionCountUtil {
 
 	@SuppressWarnings("unchecked")
 	private static Set<String> getSessions(long userId) {
-		return (Set<String>) _portalCache.get(Constants.KEY_SESSIONS_CACHE + userId);
+		return (Set<String>) _portalCache.get(KEY_SESSIONS_CACHE + userId);
 	}
 
 }

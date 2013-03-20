@@ -4,6 +4,9 @@ import ru.emdev.security.auth.hook.upgrade.v6_1_1_1.UpgradeUser;
 
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 
+/**
+ * @author Alexey Melnikov
+ */
 public class UpgradeProcess_6_1_1_1 extends UpgradeProcess {
 
 	@Override
@@ -13,10 +16,6 @@ public class UpgradeProcess_6_1_1_1 extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		if (UpgradeUtil.isFirstRun()) {
-			return;
-		}
-
 		upgrade(UpgradeUser.class);
 	}
 }

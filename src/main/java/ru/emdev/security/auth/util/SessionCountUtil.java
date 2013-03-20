@@ -8,6 +8,9 @@ import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+/**
+ * @author Alexey Melnikov
+ */
 public class SessionCountUtil {
 
 	private static final Log _log = LogFactoryUtil.getLog(SessionCountUtil.class);

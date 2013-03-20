@@ -2,6 +2,9 @@ package ru.emdev.security.auth;
 
 import com.liferay.portal.security.auth.AuthException;
 
+/**
+ * @author Alexey Melnikov
+ */
 public class MaxSessionCountException extends AuthException {
 
 	public MaxSessionCountException() {

@@ -11,6 +11,9 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PortalUtil;
 
+/**
+ * @author Alexey Melnikov
+ */
 public class PostLogoutAction extends Action {
 
 	private static final Log _log = LogFactoryUtil.getLog(PostLogoutAction.class);

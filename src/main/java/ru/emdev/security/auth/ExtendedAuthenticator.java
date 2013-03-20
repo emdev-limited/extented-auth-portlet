@@ -56,7 +56,7 @@ public class ExtendedAuthenticator implements Authenticator {
 			else if (StringUtils.isEmpty(screenName))
 				user = UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
 		} catch (Exception e) {
-			_log.info("Can't find user", e);
+			_log.info("Can't find user: " + e.getMessage());
 		}
 
 		if (user == null) {

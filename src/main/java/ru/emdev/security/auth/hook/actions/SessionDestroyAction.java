@@ -15,6 +15,9 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 
+/**
+ * @author Alexey Melnikov
+ */
 public class SessionDestroyAction extends SessionAction {
 
 	private static final Log _log = LogFactoryUtil.getLog(SessionDestroyAction.class);

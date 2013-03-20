@@ -5,3 +5,4 @@ This plugin provides additional settings for user authentication mechanism in Li
 
   - Maximum number of sessions per user, by default **3**
   > Can be configured in portal-ext.properties with key **auth.user.max.session.count=2**
+  > 0 value disables session count limit

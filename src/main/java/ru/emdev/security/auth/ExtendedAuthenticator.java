@@ -65,7 +65,7 @@ public class ExtendedAuthenticator implements Authenticator {
 			int maxCount = GetterUtil.getInteger(PropsUtil
 					.get(PropsKeys.MAX_SESSION_COUNT_FOR_USER));
 
-			if (SessionCountUtil.count(user.getUserId()) >= maxCount)
+			if (maxCount != 0 && SessionCountUtil.count(user.getUserId()) >= maxCount)
 				throw new MaxSessionCountException();
 		}
 

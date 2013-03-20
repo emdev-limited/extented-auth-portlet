@@ -1,4 +1,4 @@
-package ru.emdev.security.auth.actions;
+package ru.emdev.security.auth.hook.actions;
 
 import javax.servlet.http.HttpSession;
 

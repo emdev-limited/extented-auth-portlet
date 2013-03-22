@@ -1,13 +1,16 @@
 package ru.emdev.security.auth.util;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.CharPool;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portlet.expando.model.ExpandoColumnConstants;
@@ -94,17 +97,31 @@ public class ExpandoUtil {
 		return result;
 	}
 
-	public static String[] getAllowedUserIP(long companyId, long userId) {
-		String[] dataArray = null;
+	public static List<String[]> getAllowedUserIP(long companyId, long userId) {
+		String[] dataArray = new String[1];
 		try {
 			dataArray = StringUtil.split(ExpandoValueLocalServiceUtil.getData(companyId,
 					User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME,
-					ExpandoTableConstants.COLUMN_ACCESS_DATE_TO, userId, StringPool.BLANK),
+					ExpandoTableConstants.COLUMN_ALLOWED_IPS, userId, dataArray)[0],
 					CharPool.NEW_LINE);
 		} catch (Exception e) {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}
 
-		return dataArray;
+		List<String[]> result = new LinkedList<String[]>();
+		for (String ip : dataArray) {
+			if (StringUtils.isBlank(ip))
+				continue;
+			if (ip.contains("-")) {
+				String[] range = ip.split("-");
+				if (StringUtils.isNotBlank(range[0]) && StringUtils.isNotBlank(range[1])) {
+					range[0] = range[0].trim();
+					range[1] = range[1].trim();
+					result.add(range);
+				}
+			}
+			result.add(new String[] { ip.trim() });
+		}
+		return result;
 	}
 }

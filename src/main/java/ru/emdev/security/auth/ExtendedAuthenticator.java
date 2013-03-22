@@ -1,16 +1,20 @@
 package ru.emdev.security.auth;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import ru.emdev.security.auth.util.ExpandoUtil;
 import ru.emdev.security.auth.util.PropsKeys;
 import ru.emdev.security.auth.util.SessionCountUtil;
+import ru.emdev.security.auth.util.net.IPUtil;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.AuthException;
 import com.liferay.portal.security.auth.Authenticator;
@@ -65,8 +69,32 @@ public class ExtendedAuthenticator implements Authenticator {
 			int maxCount = GetterUtil.getInteger(PropsUtil
 					.get(PropsKeys.MAX_SESSION_COUNT_FOR_USER));
 
-			if (maxCount != 0 && SessionCountUtil.count(user.getUserId()) >= maxCount)
+			// max session check (ДЕРЕВО)
+			long usrId = user.getUserId();
+			if (maxCount != 0 && SessionCountUtil.count(usrId) >= maxCount)
 				throw new MaxSessionCountException();
+
+			// ip range check if specified for user
+			List<String[]> allowedUserIPs = ExpandoUtil.getAllowedUserIP(companyId, usrId);
+			String ip = user.getLastLoginIP();
+			for (String[] allowedIP : allowedUserIPs) {
+
+				boolean contains = false;
+				try {
+					int length = allowedIP.length;
+					contains = (length == 1 && IPUtil.rangeContains(allowedIP[0], ip))
+							|| (length == 2 && IPUtil.rangeContains(allowedIP[0], allowedIP[1], ip));
+				} catch (Exception e) {
+					_log.error("Skipped IP address/range[" + StringUtil.merge(allowedIP)
+							+ "] check because error occured", e);
+				}
+				if (!contains) {
+					_log.info("User[" + usrId + "] can't access because his address[" + ip
+							+ "] is not allowed in settings.");
+
+					throw new NotAllowedIPAddressException();
+				}
+			}
 		}
 
 		return SUCCESS;

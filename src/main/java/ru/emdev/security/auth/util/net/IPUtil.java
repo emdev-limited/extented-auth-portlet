@@ -35,12 +35,12 @@ public class IPUtil {
         return result;
     }
 
-    public boolean rangeContains(String from, String to, String address) {
+    public static boolean rangeContains(String from, String to, String address) {
     	IPAddressRange range = IPAddressRange.fromFirstAndLast(from, to);
     	return range != null && range.contains(address);
     }
 
-    public boolean rangeContains(String mask, String address) {
+    public static boolean rangeContains(String mask, String address) {
     	IPAddressRange range = IPAddressRange.fromString(mask);
     	return range != null && range.contains(address);
     }

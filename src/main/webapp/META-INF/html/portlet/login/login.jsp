@@ -100,9 +100,9 @@
 			<liferay-ui:error exception="<%= UserLockoutException.class %>" message="this-account-has-been-locked" />
 			<liferay-ui:error exception="<%= UserPasswordException.class %>" message="authentication-failed" />
 			<liferay-ui:error exception="<%= UserScreenNameException.class %>" message="authentication-failed" />
-			<liferay-ui:error key="ru.emdev.security.auth.MaxSessionCountException" message="MaxSessionCountException" />
-			<liferay-ui:error key="ru.emdev.security.auth.NonWorkingTimeException" message="NonWorkingTimeException" />
-			<liferay-ui:error key="ru.emdev.security.auth.NotAllowedIPAddressException" message="NotAllowedIPAddressException" />
+			<liferay-ui:error key="ru.emdev.security.auth.MaxSessionCountException" message="max-session-count-exception" />
+			<liferay-ui:error key="ru.emdev.security.auth.NonWorkingTimeException" message="non-working-time-exception" />
+			<liferay-ui:error key="ru.emdev.security.auth.NotAllowedIPAddressException" message="not-allowed-ip-address-exception" />
 
 			<aui:fieldset>
 

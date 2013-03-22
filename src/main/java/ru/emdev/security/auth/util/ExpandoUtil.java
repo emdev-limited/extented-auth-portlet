@@ -98,12 +98,15 @@ public class ExpandoUtil {
 	}
 
 	public static List<String[]> getAllowedUserIP(long companyId, long userId) {
-		String[] dataArray = new String[1];
+		String[] dataArray = null;
 		try {
-			dataArray = StringUtil.split(ExpandoValueLocalServiceUtil.getData(companyId,
+			dataArray = ExpandoValueLocalServiceUtil.getData(companyId,
 					User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME,
-					ExpandoTableConstants.COLUMN_ALLOWED_IPS, userId, dataArray)[0],
-					CharPool.NEW_LINE);
+					ExpandoTableConstants.COLUMN_ALLOWED_IPS, userId, dataArray);
+
+			dataArray = dataArray != null && dataArray.length > 0 ? StringUtil.split(dataArray[0],
+					CharPool.NEW_LINE) : new String[0];
+
 		} catch (Exception e) {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}

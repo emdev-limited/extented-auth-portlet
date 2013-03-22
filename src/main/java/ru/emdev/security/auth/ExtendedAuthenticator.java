@@ -1,5 +1,6 @@
 package ru.emdev.security.auth;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import ru.emdev.security.auth.util.net.IPUtil;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -89,11 +91,22 @@ public class ExtendedAuthenticator implements Authenticator {
 							+ "] check because error occured", e);
 				}
 				if (!contains) {
-					_log.info("User[" + usrId + "] can't access because his address[" + ip
+					_log.info("User[" + usrId + "] can't login because his address[" + ip
 							+ "] is not allowed in settings.");
 
 					throw new NotAllowedIPAddressException();
 				}
+			}
+
+			// check access dates
+			if (ExpandoUtil.isAccessByDateEnabled(companyId, usrId)) {
+				Date from = ExpandoUtil.getDateFrom(companyId, usrId);
+				Date to = ExpandoUtil.getDateTo(companyId, usrId);
+				Date now = DateUtil.newDate();
+
+				if ( !(from == null || now.after(from) && to == null || now.before(to)) )
+					_log.info("User[" + usrId + "] can't login because his usage period expired .");
+					throw new NonWorkingTimeException();
 			}
 		}
 

@@ -3,5 +3,9 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
+
+	<language-properties>Language_en_US.properties</language-properties>
+	<language-properties>Language_ru.properties</language-properties>
+
     <custom-jsp-dir>/META-INF</custom-jsp-dir>
 </hook>

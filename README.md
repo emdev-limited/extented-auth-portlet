@@ -6,7 +6,8 @@ This plugin provides additional settings for user authentication mechanism in Li
 
   - Maximum number of sessions per user, by default **3**
   > Can be configured in portal-ext.properties with key **auth.user.max.session.count=2**  
-  > **0** value disables session count limit
+  > **0** value disables session count limit  
+  > Also can be configured for each user separately through additional fields of user. Setting specified for user overrides global setting.
 
   - Restrict user access allowing to login only from specified IP addresses
   > Each user configured from Control panel through additional fields. Supported values are IPv4 and IPv6 single values, range values or CIDR notation, for example:  

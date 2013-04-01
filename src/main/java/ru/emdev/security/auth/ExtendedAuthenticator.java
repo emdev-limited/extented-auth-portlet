@@ -50,7 +50,7 @@ public class ExtendedAuthenticator implements Authenticator {
 		return authenticate(companyId, null, null, userId);
 	}
 
-	protected int authenticate(long companyId, String emailAddress, String screenName, long userId)
+	protected int authenticate(long companyId, String emailAddress, String screenName, final long userId)
 			throws AuthException {
 
 		User user = null;
@@ -68,11 +68,15 @@ public class ExtendedAuthenticator implements Authenticator {
 		if (user == null) {
 			return DNE;
 		} else {
-			int maxCount = GetterUtil.getInteger(PropsUtil
-					.get(PropsKeys.MAX_SESSION_COUNT_FOR_USER));
+			long usrId = user.getUserId();
+
+			int maxCount = ExpandoUtil.getSessionCount(companyId, usrId);
+
+			if (maxCount == 0)
+				maxCount = GetterUtil.getInteger(PropsUtil
+						.get(PropsKeys.MAX_SESSION_COUNT_FOR_USER));
 
 			// max session check (ДЕРЕВО)
-			long usrId = user.getUserId();
 			if (maxCount != 0 && SessionCountUtil.count(usrId) >= maxCount)
 				throw new MaxSessionCountException();
 

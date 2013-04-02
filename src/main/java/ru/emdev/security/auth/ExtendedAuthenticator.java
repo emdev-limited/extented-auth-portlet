@@ -95,7 +95,7 @@ public class ExtendedAuthenticator implements Authenticator {
 							+ "] check because error occured", e);
 				}
 				if (!contains) {
-					_log.info("User[" + usrId + "] can't login because his address[" + ip
+					_log.info("User[" + usrId + "] can't login because his IP address[" + ip
 							+ "] is not allowed in settings.");
 
 					throw new NotAllowedIPAddressException();

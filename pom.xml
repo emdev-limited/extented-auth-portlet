@@ -5,7 +5,7 @@
 	<groupId>ru.emdev</groupId>
 	<artifactId>extended-auth-portlet</artifactId>
 	<packaging>war</packaging>
-	<name>Custom Authentication Portlet</name>
+	<name>Extended Authentication Settings hook</name>
 	<version>6.1.1.1</version>
 
 	<properties>
@@ -79,13 +79,13 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
+			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>2.0</version>
+			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -114,4 +114,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<organization>
+		<name>EmDev LLC</name>
+		<url>http://emdev.ru</url>
+	</organization>
 </project>

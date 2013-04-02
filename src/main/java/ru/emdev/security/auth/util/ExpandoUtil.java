@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import ru.emdev.security.auth.hook.upgrade.v6_1_1_1.OldExpandoColumns;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -50,7 +48,7 @@ public class ExpandoUtil {
 		try {
 			result = ExpandoValueLocalServiceUtil.getData(companyId, User.class.getName(),
 					ExpandoTableConstants.DEFAULT_TABLE_NAME,
-					OldExpandoColumns.COLUMN_ACCESS_BY_DATE, userId, false);
+					ExpandoTableConstants.COLUMN_ACCESS_BY_DATE, userId, false);
 		} catch (Exception e) {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}
@@ -63,7 +61,7 @@ public class ExpandoUtil {
 		try {
 			result = ExpandoValueLocalServiceUtil.getData(companyId, User.class.getName(),
 					ExpandoTableConstants.DEFAULT_TABLE_NAME,
-					OldExpandoColumns.COLUMN_ACCESS_DATE_FROM, userId, result);
+					ExpandoTableConstants.COLUMN_ACCESS_DATE_FROM, userId, result);
 		} catch (Exception e) {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}
@@ -76,7 +74,7 @@ public class ExpandoUtil {
 		try {
 			result = ExpandoValueLocalServiceUtil.getData(companyId, User.class.getName(),
 					ExpandoTableConstants.DEFAULT_TABLE_NAME,
-					OldExpandoColumns.COLUMN_ACCESS_DATE_TO, userId, result);
+					ExpandoTableConstants.COLUMN_ACCESS_DATE_TO, userId, result);
 		} catch (Exception e) {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}
@@ -102,7 +100,7 @@ public class ExpandoUtil {
 		try {
 			dataArray = ExpandoValueLocalServiceUtil.getData(companyId,
 					User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME,
-					OldExpandoColumns.COLUMN_ALLOWED_IPS, userId, dataArray);
+					ExpandoTableConstants.COLUMN_ALLOWED_IPS, userId, dataArray);
 
 			dataArray = dataArray != null && dataArray.length > 0 ? StringUtil.split(dataArray[0],
 					CharPool.NEW_LINE) : new String[0];

@@ -13,7 +13,9 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.User;
+import com.liferay.portlet.expando.model.ExpandoColumn;
 import com.liferay.portlet.expando.model.ExpandoTable;
+import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 
@@ -25,22 +27,36 @@ public class ExpandoUtil {
 	private static final Log _log = LogFactoryUtil.getLog(ExpandoUtil.class);
 
 
-	public static long getExpandoTable(long companyId, String className) throws PortalException, SystemException {
-		ExpandoTable userExandoTable = null;
+	public static long getExpandoTableId(long companyId, String className) throws PortalException, SystemException {
+		ExpandoTable exandoTable = null;
 		long tableId = 0l;
 	
 		try {
-			userExandoTable = ExpandoTableLocalServiceUtil.getTable(companyId,
+			exandoTable = ExpandoTableLocalServiceUtil.getTable(companyId,
 					className, ExpandoTableConstants.DEFAULT_TABLE_NAME);
 		} catch (Exception ex) { }
 	
-		if (userExandoTable == null) {
-			userExandoTable = ExpandoTableLocalServiceUtil.addTable(companyId,
+		if (exandoTable == null) {
+			exandoTable = ExpandoTableLocalServiceUtil.addTable(companyId,
 					className, ExpandoTableConstants.DEFAULT_TABLE_NAME);
 		}
 	
-		tableId = userExandoTable.getTableId();
+		tableId = exandoTable.getTableId();
 		return tableId;
+	}
+
+	public static ExpandoColumn addUserExpandoColumn(long companyId, String name, int type)
+			throws PortalException, SystemException {
+
+		long tableId = ExpandoUtil.getExpandoTableId(companyId, User.class.getName());
+
+		ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(tableId, name);
+
+		if (column == null)
+			column = ExpandoColumnLocalServiceUtil.addColumn(tableId, name, type);
+
+		return column;
+
 	}
 
 	public static boolean isAccessByDateEnabled(long companyId, long userId) {

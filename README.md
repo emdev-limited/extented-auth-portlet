@@ -4,7 +4,7 @@ Extended Authentication plugin for Liferay
 
 This plugin provides additional settings for user authentication mechanism in Liferay.
 
-  - Maximum number of sessions per user, by default **3**
+  - Maximum number of simultaneous sessions for each user, by default **0**, which is means session count is unlimited.
   > Can be configured in portal-ext.properties with key **auth.user.max.session.count=2**  
   > **0** value disables session count limit  
   > Also can be configured for each user separately through additional fields of user. Setting specified for user overrides global setting.

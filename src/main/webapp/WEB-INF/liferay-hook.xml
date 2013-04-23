@@ -8,5 +8,5 @@
 	<language-properties>Language_en.properties</language-properties>
 	<language-properties>Language_ru.properties</language-properties>
 
-    <custom-jsp-dir>/META-INF</custom-jsp-dir>
+    <custom-jsp-dir>/jsp-hook</custom-jsp-dir>
 </hook>

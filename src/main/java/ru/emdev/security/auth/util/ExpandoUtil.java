@@ -111,6 +111,11 @@ public class ExpandoUtil {
 		return result;
 	}
 
+	/**
+	 * @param companyId
+	 * @param userId
+	 * @return empty list, or list with values
+	 */
 	public static List<String[]> getAllowedUserIP(long companyId, long userId) {
 		String[] dataArray = null;
 		try {

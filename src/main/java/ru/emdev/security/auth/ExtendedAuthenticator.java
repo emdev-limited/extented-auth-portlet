@@ -73,10 +73,13 @@ public class ExtendedAuthenticator implements Authenticator {
 
 			int maxCount = ExpandoUtil.getSessionCount(companyId, usrId);
 
-			if (maxCount == 0)
+			if (maxCount == 0) {
 				maxCount = GetterUtil.getInteger(PropsUtil
 						.get(PropsKeys.MAX_SESSION_COUNT_FOR_USER));
-
+				_log.debug("Global maximum session count for users is: " + maxCount);
+			}
+			else
+				_log.debug("Maximum session count for user is: " + maxCount);
 			// max session check (ДЕРЕВО)
 			if (maxCount != 0 && SessionCountUtil.count(usrId) >= maxCount)
 				throw new MaxSessionCountException();
@@ -84,8 +87,9 @@ public class ExtendedAuthenticator implements Authenticator {
 			// ip range check if specified for user
 			List<String[]> allowedUserIPs = ExpandoUtil.getAllowedUserIP(companyId, usrId);
 			String ip = AuditRequestThreadLocal.getAuditThreadLocal().getClientIP();
+			_log.debug("User IP is: " + ip);
 			for (String[] allowedIP : allowedUserIPs) {
-
+				_log.debug("Check IP address range: " + StringUtil.merge(allowedIP));
 				boolean contains = false;
 				try {
 					int length = allowedIP.length;
@@ -109,6 +113,9 @@ public class ExtendedAuthenticator implements Authenticator {
 				Date to = ExpandoUtil.getDateTo(companyId, usrId);
 				Date now = DateUtil.newDate();
 
+				_log.debug("Checking access from date: " + from.toString());
+				_log.debug("Checking access to date: " + to.toString());
+				_log.debug("Now date: " + now.toString());
 				if ( !(from == null || now.after(from) && to == null || now.before(to)) )
 					_log.info("User[" + usrId + "] can't login because his usage period expired .");
 					throw new NonWorkingTimeException();

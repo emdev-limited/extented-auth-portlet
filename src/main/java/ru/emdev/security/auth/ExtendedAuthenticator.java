@@ -11,6 +11,7 @@ import ru.emdev.security.auth.util.PropsKeys;
 import ru.emdev.security.auth.util.SessionCountUtil;
 import ru.emdev.security.auth.util.net.IPUtil;
 
+import com.liferay.portal.kernel.audit.AuditRequestThreadLocal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.DateUtil;
@@ -82,7 +83,7 @@ public class ExtendedAuthenticator implements Authenticator {
 
 			// ip range check if specified for user
 			List<String[]> allowedUserIPs = ExpandoUtil.getAllowedUserIP(companyId, usrId);
-			String ip = user.getLastLoginIP();
+			String ip = AuditRequestThreadLocal.getAuditThreadLocal().getClientIP();
 			for (String[] allowedIP : allowedUserIPs) {
 
 				boolean contains = false;

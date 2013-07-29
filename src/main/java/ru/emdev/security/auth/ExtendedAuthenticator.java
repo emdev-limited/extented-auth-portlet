@@ -116,9 +116,14 @@ public class ExtendedAuthenticator implements Authenticator {
 				_log.debug("Checking access from date: " + from.toString());
 				_log.debug("Checking access to date: " + to.toString());
 				_log.debug("Now date: " + now.toString());
-				if ( !(from == null || now.after(from) && to == null || now.before(to)) )
+				if ( !(
+						(from == null || now.after(from)) && 
+						(to == null || now.before(to))
+					  )
+				) {
 					_log.info("User[" + usrId + "] can't login because his usage period expired .");
 					throw new NonWorkingTimeException();
+				}
 			}
 		}
 

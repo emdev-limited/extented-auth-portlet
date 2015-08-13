@@ -1,7 +1,6 @@
 package ru.emdev.security.auth;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -87,30 +86,19 @@ public class ExtendedAuthenticator implements Authenticator {
 
 			// ip range check if specified for user
 			List<String[]> allowedUserIPs = ExpandoUtil.getAllowedUserIP(companyId, usrId);
-			
-			if(allowedUserIPs.size()>0){
-				
-				String ip = AuditRequestThreadLocal.getAuditThreadLocal().getClientIP();
-				_log.debug("User IP is: " + ip);
-			
+			String ip = AuditRequestThreadLocal.getAuditThreadLocal().getClientIP();
+			_log.debug("User IP is: " + ip);
+			for (String[] allowedIP : allowedUserIPs) {
+				_log.debug("Check IP address range: " + StringUtil.merge(allowedIP));
 				boolean contains = false;
-				for (Iterator<String[]> iterator = allowedUserIPs.iterator(); 
-						(iterator.hasNext() && !contains);) {
-					
-					String[] allowedIP = (String[]) iterator.next();
-					
-					_log.debug("Check IP address range: " + StringUtil.merge(allowedIP));
-					
-					try {
-						int length = allowedIP.length;
-						contains = (length == 1 && IPUtil.rangeContains(allowedIP[0], ip))
-								|| (length == 2 && IPUtil.rangeContains(allowedIP[0], allowedIP[1], ip));
-					} catch (Exception e) {
-						_log.error("Skipped IP address/range[" + StringUtil.merge(allowedIP)
-								+ "] check because error occured", e);
-					}
+				try {
+					int length = allowedIP.length;
+					contains = (length == 1 && IPUtil.rangeContains(allowedIP[0], ip))
+							|| (length == 2 && IPUtil.rangeContains(allowedIP[0], allowedIP[1], ip));
+				} catch (Exception e) {
+					_log.error("Skipped IP address/range[" + StringUtil.merge(allowedIP)
+							+ "] check because error occured", e);
 				}
-				
 				if (!contains) {
 					_log.info("User[" + usrId + "] can't login because his IP address[" + ip
 							+ "] is not allowed in settings.");

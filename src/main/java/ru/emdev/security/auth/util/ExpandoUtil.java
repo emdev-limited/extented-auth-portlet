@@ -3,11 +3,9 @@ package ru.emdev.security.auth.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -149,20 +147,6 @@ public class ExpandoUtil {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}
 
-		List<String[]> result = new LinkedList<String[]>();
-		for (String ip : dataArray) {
-			if (StringUtils.isBlank(ip))
-				continue;
-			if (ip.contains("-")) {
-				String[] range = ip.split("-");
-				if (StringUtils.isNotBlank(range[0]) && StringUtils.isNotBlank(range[1])) {
-					range[0] = range[0].trim();
-					range[1] = range[1].trim();
-					result.add(range);
-				}
-			}
-			result.add(new String[] { ip.trim() });
-		}
-		return result;
+		return ExtendedAuthSettingsUtil.convertIPRanges(dataArray);
 	}
 }

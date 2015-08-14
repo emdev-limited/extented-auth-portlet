@@ -18,6 +18,7 @@ This plugin provides additional settings for user authentication mechanism in Li
   >> **::1/128**  
   >> **fe80::226:2dff:fefa:0/112**  
   >> **fe80::226:2dff:fefa:cd1f-fe80::226:2dff:fefa:ffff**
-
   - Allow to user work with system only for specified period of time
   > This option also available in additional fields of user within Control panel. To apply this option to work, you should set attribute 'Access by date enabled' to **True**
+  
+  - These settings can be applied at company level.

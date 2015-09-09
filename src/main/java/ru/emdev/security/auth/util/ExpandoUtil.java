@@ -1,10 +1,11 @@
 package ru.emdev.security.auth.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ArrayUtils;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -123,27 +124,29 @@ public class ExpandoUtil {
 					User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME,
 					ExpandoTableConstants.COLUMN_ALLOWED_IPS, userId, dataArray);
 
-			dataArray = dataArray != null && dataArray.length > 0 ? StringUtil.split(dataArray[0],
-					CharPool.NEW_LINE) : new String[0];
+			
+			if(!ArrayUtils.isEmpty(dataArray)){
+					
+				List<String> ipRules = new ArrayList<String>();
+				for (String rule : dataArray) {
+					 
+					if(rule.indexOf(CharPool.NEW_LINE)!=-1){
+						ipRules.addAll(Arrays.asList(StringUtil.split(rule, CharPool.NEW_LINE)));
+					}else{
+						ipRules.add(rule);
+					}
+				}
+				dataArray = ipRules.toArray(dataArray);
+			}else{
+				dataArray = new String[0];
+			}
+
+			_log.debug("User's IP rules:" + StringUtil.merge(dataArray));
 
 		} catch (Exception e) {
 			_log.error("Can't access to user[" + userId + "] attributes", e);
 		}
 
-		List<String[]> result = new LinkedList<String[]>();
-		for (String ip : dataArray) {
-			if (StringUtils.isBlank(ip))
-				continue;
-			if (ip.contains("-")) {
-				String[] range = ip.split("-");
-				if (StringUtils.isNotBlank(range[0]) && StringUtils.isNotBlank(range[1])) {
-					range[0] = range[0].trim();
-					range[1] = range[1].trim();
-					result.add(range);
-				}
-			}
-			result.add(new String[] { ip.trim() });
-		}
-		return result;
+		return ExtendedAuthSettingsUtil.convertIPRanges(dataArray);
 	}
 }

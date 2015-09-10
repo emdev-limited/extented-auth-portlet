@@ -6,10 +6,10 @@
 	<artifactId>extended-auth-portlet</artifactId>
 	<packaging>war</packaging>
 	<name>Extended Authentication Settings hook</name>
-	<version>6.1.1.1</version>
+	<version>6.2.1.1</version>
 
 	<properties>
-		<liferay.version>6.1.1</liferay.version>
+		<liferay.version>6.2.1</liferay.version>
 	</properties>
 
 	<build>

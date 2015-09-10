@@ -59,12 +59,8 @@
 				monthParam="startDateMonth"
 				monthValue="<%= startDate.get(Calendar.MONTH) %>"
 				yearParam="startDateYear"
-				yearRangeEnd="<%= startDate.get(Calendar.YEAR) %>"
-				yearRangeStart="<%= startDate.get(Calendar.YEAR)  %>"
 				yearValue="<%= startDate.get(Calendar.YEAR) %>"
 			/>
-
-			&nbsp;
 
 			<liferay-ui:input-time
 				amPmParam='<%= "startDateAmPm" %>'
@@ -72,7 +68,7 @@
 				disabled="<%= false %>"
 				hourParam='<%= "startDateHour" %>'
 				hourValue="<%= startDate.get(Calendar.HOUR) %>"
-				minuteInterval="<%= 1 %>"
+				minuteInterval="<%= 30 %>"
 				minuteParam='<%= "startDateMinute" %>'
 				minuteValue="<%= startDate.get(Calendar.MINUTE) %>"
 			/>
@@ -87,12 +83,8 @@
 				monthParam="endDateMonth"
 				monthValue="<%= endDate.get(Calendar.MONTH) %>"
 				yearParam="endDateYear"
-				yearRangeEnd="<%= endDate.get(Calendar.YEAR) %>"
-				yearRangeStart="<%= endDate.get(Calendar.YEAR)%>"
 				yearValue="<%= endDate.get(Calendar.YEAR) %>"
 			/>
-
-			&nbsp;
 
 			<liferay-ui:input-time
 				amPmParam='<%= "endDateAmPm" %>'
@@ -100,7 +92,7 @@
 				disabled="<%= false %>"
 				hourParam='<%= "endDateHour" %>'
 				hourValue="<%= endDate.get(Calendar.HOUR) %>"
-				minuteInterval="<%= 1 %>"
+				minuteInterval="<%= 30 %>"
 				minuteParam='<%= "endDateMinute" %>'
 				minuteValue="<%= endDate.get(Calendar.MINUTE) %>"
 			/>

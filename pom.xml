@@ -9,7 +9,7 @@
 	<version>6.2.1.1</version>
 
 	<properties>
-		<liferay.version>6.2.1</liferay.version>
+		<liferay.version>6.2.3</liferay.version>
 	</properties>
 
 	<build>
